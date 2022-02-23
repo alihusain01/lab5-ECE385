@@ -83,24 +83,5 @@ ISDU state_controller(
 //		SRAM_WE <= SRAM_WE_In;
 //end
 
-
-
-//I started building below this
-//instantiate 16-bit registers IR, MDR,MAR, BUS, PC
-
-logic [15:0] PC,BUS;
-reg_16 PC (.CLK(CLK), .Reset(Reset), .Enable(LD_PC), .D(PC),.Data_out(PC));
-reg_16 MAR(.CLK(CLK), .Reset(Reset), .Enable(LD_MAR),.D(MAR),.Data_out(MAR));
-reg_16 MDR(.CLK(CLK), .Reset(Reset), .Enable(LD_MDR),.D(MDR),.Data_out(MDR));
-reg_16 IR( .CLK(CLK), .Reset(Reset), .Enable(LD_IR), .D(IR) ,.Data_out(IR));
-	
-	always_ff(@posedge CLK)
-	begin
-	BUS=PC;
-	MAR+BUs
-	PC=PC+1;
-	
-	IR=MDR;
-	end
 	
 endmodule
