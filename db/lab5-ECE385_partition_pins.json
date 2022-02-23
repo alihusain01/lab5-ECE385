@@ -1,0 +1,149 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "Data_Out[0]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[1]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[2]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[3]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[4]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[5]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[6]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[7]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[8]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[9]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[10]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[11]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[12]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[13]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[14]",
+					"strict" : false
+				},
+				{
+					"name" : "Data_Out[15]",
+					"strict" : false
+				},
+				{
+					"name" : "D[0]",
+					"strict" : false
+				},
+				{
+					"name" : "Reset",
+					"strict" : false
+				},
+				{
+					"name" : "Clk",
+					"strict" : false
+				},
+				{
+					"name" : "Enable",
+					"strict" : false
+				},
+				{
+					"name" : "D[1]",
+					"strict" : false
+				},
+				{
+					"name" : "D[2]",
+					"strict" : false
+				},
+				{
+					"name" : "D[3]",
+					"strict" : false
+				},
+				{
+					"name" : "D[4]",
+					"strict" : false
+				},
+				{
+					"name" : "D[5]",
+					"strict" : false
+				},
+				{
+					"name" : "D[6]",
+					"strict" : false
+				},
+				{
+					"name" : "D[7]",
+					"strict" : false
+				},
+				{
+					"name" : "D[8]",
+					"strict" : false
+				},
+				{
+					"name" : "D[9]",
+					"strict" : false
+				},
+				{
+					"name" : "D[10]",
+					"strict" : false
+				},
+				{
+					"name" : "D[11]",
+					"strict" : false
+				},
+				{
+					"name" : "D[12]",
+					"strict" : false
+				},
+				{
+					"name" : "D[13]",
+					"strict" : false
+				},
+				{
+					"name" : "D[14]",
+					"strict" : false
+				},
+				{
+					"name" : "D[15]",
+					"strict" : false
+				}
+			]
+		}
+	]
+}
