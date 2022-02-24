@@ -1,5 +1,5 @@
-module gate_mux(input logic [1:0] Choose, 
-						input logic [15:0] MARMUX, PC, ALU, MDR, 
+module gate_mux(input logic GatePC, GateMDR, GateALU, GateMARMUX, 
+						input logic [15:0] PC, MDR, ALU, MARMUX, 
 						output logic [15:0] BUS);
 						
 //Choose = 00 => MARMUX
@@ -9,24 +9,24 @@ module gate_mux(input logic [1:0] Choose,
 	
 	always_comb
 	begin
-		if (Choose == 00)
-		begin
-		BUS = MARMUX;
-		end
-		
-		else if (Choose == 01)
+		if (GatePC == 1)
 		begin
 		BUS = PC;
 		end
+		
+		else if (GateMDR == 1)
+		begin
+		BUS = MDR;
+		end
 	
-		else if (Choose == 10)
+		else if (GateALU == 1)
 		begin
 		BUS = ALU;
 		end	
 	
 		else
 		begin
-		BUS = MDR;
+		BUS = MARMUX;
 		end		
 	end	
 

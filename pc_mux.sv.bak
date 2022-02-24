@@ -1,0 +1,33 @@
+module pc_mux(input logic [1:0] Choose, 
+						input logic [15:0] BUS, ADDER,
+						output logic [15:0] PC);
+						
+//Choose = 00 => PC + 1
+//Choose = 01 => ADDER
+//Choose = 10 => BUS
+//Choose = 11 => Z
+	
+	always_comb
+	begin
+		if (Choose == 00)
+		begin
+		PC = PC + 1;
+		end
+		
+		else if (Choose == 01)
+		begin
+		PC = ADDER;
+		end
+	
+		else if (Choose == 10)
+		begin
+		PC = BUS;
+		end	
+	
+		else
+		begin
+		PC = 16'h0;
+		end		
+	end	
+
+endmodule

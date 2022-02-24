@@ -37,8 +37,6 @@ HexDriver hex_drivers[3:0] (hex_4, {HEX3, HEX2, HEX1, HEX0});
 // This works thanks to http://stackoverflow.com/questions/1378159/verilog-can-we-have-an-array-of-custom-modules
 
 
-
-
 // Internal connections
 logic LD_MAR, LD_MDR, LD_IR, LD_BEN, LD_CC, LD_REG, LD_PC, LD_LED;
 logic GatePC, GateMDR, GateALU, GateMARMUX;
@@ -48,6 +46,12 @@ logic [1:0] PCMUX, ADDR2MUX, ALUK;
 logic [15:0] MDR_In;
 logic [15:0] MAR, MDR, IR;
 
+//ASSIGNING HEX DRIVERS
+assign hex_4[0] = IR[3:0];
+assign hex_4[1] = IR[7:4];
+assign hex_4[2] = IR[11:8];
+assign hex_4[3] = IR[15:12];
+
 
 // Connect MAR to ADDR, which is also connected as an input into MEM2IO
 //	MEM2IO will determine what gets put onto Data_CPU (which serves as a potential
@@ -55,13 +59,14 @@ logic [15:0] MAR, MDR, IR;
 assign ADDR = MAR; 
 assign MIO_EN = OE;
 // Connect everything to the data path (you have to figure out this part)
-datapath d0 (.*);
+//datapath d0 (.*);
 
 // Our SRAM and I/O controller (note, this plugs into MDR/MAR)
 
 Mem2IO memory_subsystem(
     .*, .Reset(Reset), .ADDR(ADDR), .Switches(SW),
-    .HEX0(hex_4[0][3:0]), .HEX1(hex_4[1][3:0]), .HEX2(hex_4[2][3:0]), .HEX3(hex_4[3][3:0]),
+    //.HEX0(hex_4[0][3:0]), .HEX1(hex_4[1][3:0]), .HEX2(hex_4[2][3:0]), .HEX3(hex_4[3][3:0]),
+	 .HEX0(), .HEX1(), .HEX2(), .HEX3(),
     .Data_from_CPU(MDR), .Data_to_CPU(MDR_In),
     .Data_from_SRAM(Data_from_SRAM), .Data_to_SRAM(Data_to_SRAM)
 );
@@ -88,11 +93,19 @@ ISDU state_controller(
 //I started building below this
 //instantiate 16-bit registers IR, MDR,MAR, BUS, PC
 
-logic [15:0] PC,BUS;
-reg_16 PC_Unit(.CLK(CLK), .Reset(Reset), .Enable(LD_PC), .D(PC),.Data_out(PC));
-reg_16 MAR_Unit(.CLK(CLK), .Reset(Reset), .Enable(LD_MAR),.D(MAR),.Data_out(MAR));
-reg_16 MDR_Unit(.CLK(CLK), .Reset(Reset), .Enable(LD_MDR),.D(MDR),.Data_out(MDR));
-reg_16 IR_Unit( .CLK(CLK), .Reset(Reset), .Enable(LD_IR), .D(IR) ,.Data_out(IR));
+logic [15:0] PC, PC_In, BUS, MARMUX_16, ALU, MIOMUX_Out;
+
+//MULTIPLEXERS:
+pc_mux 			PC_Mux_Unit(.Choose(PCMUX), .BUS(BUS), .ADDER(16'h0), .PCMUX_In(PC), .PCMUX_Out(PC_In));
+two_to_one_mux MIO_Mux(.Choose(MIO_EN), .S0(BUS), .S1(Data_from_SRAM), .OUT(MIOMUX_Out));
+gate_mux 		GATE_Mux_Unit(.GatePC(GatePC), .GateMDR(GateMDR), .GateALU(GateALU), .GateMARMUX(GateMARMUX),
+										.PC(PC), .MDR(MDR), .ALU(ALU), .MARMUX(MARMUX_16), 
+										.BUS(BUS));
+//REGISTERS
+reg_16 PC_Unit(.Clk(Clk), .Reset(Reset), .Enable(LD_PC), .D(PC_In), .Data_Out(PC));
+reg_16 MAR_Unit(.Clk(Clk), .Reset(Reset), .Enable(LD_MAR),.D(BUS), .Data_Out(MAR));
+reg_16 MDR_Unit(.Clk(Clk), .Reset(Reset), .Enable(LD_MDR),.D(MIOMUX_Out), .Data_Out(MDR));
+reg_16 IR_Unit( .Clk(Clk), .Reset(Reset), .Enable(LD_IR), .D(BUS) , .Data_Out(IR));
 
 	
 endmodule
